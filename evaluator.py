@@ -3,14 +3,24 @@ import ast
 
 
 def analyze_code(code):
+
     result = {
         "syntax_valid": False,
         "functions": [],
         "loop_count": 0,
-        "issues": []
+        "line_count": 0,
+        "issues": [],
+        "quality_issues": []
     }
 
-    # Check whether the submitted code is valid Python
+    # Check whether code is empty
+    if not code.strip():
+        result["issues"].append("Code is empty.")
+        return result
+
+    result["line_count"] = len(code.splitlines())
+
+    # Check Python syntax
     try:
         tree = ast.parse(code)
         result["syntax_valid"] = True
@@ -21,38 +31,24 @@ def analyze_code(code):
         )
         return result
 
-    # Look at the different elements in the code
+    # Check functions and loops
     for item in ast.walk(tree):
 
-        # Find all functions
         if isinstance(item, ast.FunctionDef):
             result["functions"].append(item.name)
 
-        # Count loops
+            if ast.get_docstring(item) is None:
+                result["quality_issues"].append(
+                    f"Function '{item.name}' is missing a docstring."
+                )
+
         if isinstance(item, (ast.For, ast.While)):
             result["loop_count"] += 1
 
-    # Add a basic suggestion if no function is defined
+    # Give basic code improvement suggestions
     if len(result["functions"]) == 0:
-        result["issues"].append(
-            "Try using functions to organize your code."
+        result["quality_issues"].append(
+            "Consider using functions to organize your code."
         )
 
     return result
-
-
-if __name__ == "__main__":
-
-    sample_code = """
-def add_numbers(a, b):
-    return a + b
-"""
-
-    output = analyze_code(sample_code)
-
-    print("Code Analysis Result")
-    print("--------------------")
-    print("Syntax Valid:", output["syntax_valid"])
-    print("Functions:", output["functions"])
-    print("Loops:", output["loop_count"])
-    print("Suggestions:", output["issues"])
