@@ -14,15 +14,19 @@ def evaluate_function(function, test_cases):
 
             if actual == expected:
                 status = "Passed"
+                feedback = "Test passed."
                 passed += 1
+
             else:
                 status = "Failed"
+                feedback = f"Expected {expected} but got {actual}."
 
             results.append({
                 "input": inputs,
                 "expected": expected,
                 "actual": actual,
-                "status": status
+                "status": status,
+                "feedback": feedback
             })
 
         except Exception as error:
@@ -31,7 +35,8 @@ def evaluate_function(function, test_cases):
                 "input": inputs,
                 "expected": expected,
                 "actual": str(error),
-                "status": "Error"
+                "status": "Error",
+                "feedback": f"An error occurred: {error}"
             })
 
     total = len(test_cases)
@@ -48,3 +53,4 @@ def evaluate_function(function, test_cases):
         "pass_percentage": pass_percentage,
         "results": results
     }
+
