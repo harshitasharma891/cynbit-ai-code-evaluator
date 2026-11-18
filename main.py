@@ -18,7 +18,9 @@ print("----------------------")
 print("Syntax Valid:", analysis_result["syntax_valid"])
 print("Functions:", analysis_result["functions"])
 print("Loop Count:", analysis_result["loop_count"])
+print("Line Count:", analysis_result["line_count"])
 print("Issues:", analysis_result["issues"])
+print("Code Quality Suggestions:", analysis_result["quality_issues"])
 
 
 # Function to test
