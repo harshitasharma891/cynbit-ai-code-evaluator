@@ -6,11 +6,12 @@ from test_evaluator import evaluate_function
 # Sample Python code to analyze
 code = """
 def add_numbers(a, b):
+    \"\"\"Add two numbers and return the result.\"\"\"
     return a + b
 """
 
 
-# Analyze the code
+# Analyze the submitted code
 analysis_result = analyze_code(code)
 
 print("CODE ANALYSIS")
@@ -25,6 +26,7 @@ print("Code Quality Suggestions:", analysis_result["quality_issues"])
 
 # Function to test
 def add_numbers(a, b):
+    """Add two numbers and return the result."""
     return a + b
 
 
@@ -47,5 +49,8 @@ print("Passed:", test_result["passed"])
 print("Failed:", test_result["failed"])
 print("Pass Percentage:", test_result["pass_percentage"], "%")
 
+print("\nIndividual Test Results:")
+
 for item in test_result["results"]:
     print(item)
+
