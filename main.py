@@ -4,14 +4,14 @@ from test_evaluator import evaluate_function
 
 
 # Sample Python code to analyze
-code = """
+code = '''
 def add_numbers(a, b):
-    \"\"\"Add two numbers and return the result.\"\"\"
+    """Add two numbers and return the result."""
     return a + b
-"""
+'''
 
 
-# Analyze the submitted code
+# Analyze the code
 analysis_result = analyze_code(code)
 
 print("CODE ANALYSIS")
